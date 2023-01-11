@@ -1,5 +1,6 @@
 const resultDiv = document.querySelector("#results");
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll("#player-choice");
+const resetButton = document.querySelector("#reset");
 
 resultDiv.setAttribute("style", "white-space: pre;");
 
@@ -21,6 +22,19 @@ function capitalize(str) {
   return str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase();
 }
 
+function resetGame() {
+  resultDiv.textContent = "";
+  gameRound = 0;
+  playerWinsCount = 0;
+  computerWinsCount = 0;
+
+  buttons.forEach((button) => {
+    button.toggleAttribute("disabled");
+  });
+
+  resetButton.toggleAttribute("hidden");
+}
+
 function announceWinner() {
   if (gameRound === 4) {
     alert(
@@ -30,6 +44,12 @@ function announceWinner() {
         ? "You lose!"
         : "Draw!"
     );
+
+    buttons.forEach((button) => {
+      button.toggleAttribute("disabled");
+    });
+
+    resetButton.toggleAttribute("hidden");
   }
 }
 
@@ -70,6 +90,8 @@ function playRound(playerSelection, computerSelection) {
 
   gameRound++;
 }
+
+resetButton.addEventListener("click", resetGame);
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
