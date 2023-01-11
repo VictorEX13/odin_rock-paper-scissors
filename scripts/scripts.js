@@ -35,32 +35,3 @@ function playRound(playerSelection, computerSelection) {
       : "A tie!";
   }
 }
-
-function game() {
-  let playerWinsCount = 0;
-  let computerWinsCount = 0;
-
-  for (let i = 0; i < 5; i++) {
-    let roundResult =
-      `Round ${i + 1}: ` +
-      playRound(prompt("Type Rock, Paper or Scissors:"), getComputerChoice());
-
-    console.log(roundResult);
-
-    if (roundResult?.includes("win")) {
-      playerWinsCount++;
-    } else if (roundResult?.includes("lose")) {
-      computerWinsCount++;
-    }
-  }
-
-  console.log(
-    playerWinsCount > computerWinsCount
-      ? "You are the winner!"
-      : computerWinsCount > playerWinsCount
-      ? "Game over!"
-      : "Draw!"
-  );
-}
-
-game();
