@@ -3,6 +3,7 @@ const buttons = document.querySelectorAll("button");
 
 resultDiv.setAttribute("style", "white-space: pre;");
 
+gameRound = 0;
 playerWinsCount = 0;
 computerWinsCount = 0;
 
@@ -18,6 +19,18 @@ function getComputerChoice() {
 
 function capitalize(str) {
   return str.slice(0, 1).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function announceWinner() {
+  if (gameRound === 4) {
+    alert(
+      playerWinsCount > computerWinsCount
+        ? "You are the Winner!"
+        : playerWinsCount < computerWinsCount
+        ? "You lose!"
+        : "Draw!"
+    );
+  }
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -54,10 +67,12 @@ function playRound(playerSelection, computerSelection) {
       resultDiv.textContent += "\r\nA tie!";
     }
   }
+
+  gameRound++;
 }
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
-    playRound(button.textContent, getComputerChoice());
+    playRound(button.textContent, getComputerChoice(), announceWinner());
   });
 });
