@@ -1,3 +1,11 @@
+const resultDiv = document.querySelector("#results");
+const buttons = document.querySelectorAll("button");
+
+resultDiv.setAttribute("style", "white-space: pre;");
+
+playerWinsCount = 0;
+computerWinsCount = 0;
+
 function getComputerChoice() {
   const randomNumber = Math.ceil(Math.random() * 3);
 
@@ -16,27 +24,37 @@ function playRound(playerSelection, computerSelection) {
   const capitalizedPlayerSelection = capitalize(playerSelection);
 
   if (computerSelection === "Rock") {
-    return capitalizedPlayerSelection === "Rock"
-      ? "A tie!"
-      : capitalizedPlayerSelection === "Paper"
-      ? "You win! Paper beats Rock"
-      : "You lose! Rock beats Scissors";
+    if (capitalizedPlayerSelection === "Rock") {
+      resultDiv.textContent += "\r\nA tie!";
+    } else if (capitalizedPlayerSelection === "Paper") {
+      resultDiv.textContent += "\r\nYou win! Paper beats Rock";
+      playerWinsCount++;
+    } else {
+      resultDiv.textContent += "\r\nYou lose! Rock beats Scissors";
+      computerWinsCount++;
+    }
   } else if (computerSelection === "Paper") {
-    return capitalizedPlayerSelection === "Rock"
-      ? "You lose! Paper beats Rock"
-      : capitalizedPlayerSelection === "Paper"
-      ? "A tie!"
-      : "You win! Scissors beats Paper";
+    if (capitalizedPlayerSelection === "Rock") {
+      resultDiv.textContent += "\r\nYou lose! Paper beats Rock";
+      computerWinsCount++;
+    } else if (capitalizedPlayerSelection === "Paper") {
+      resultDiv.textContent += "\r\nA tie!";
+    } else {
+      resultDiv.textContent += "\r\nYou win! Scissors beats Paper";
+      playerWinsCount++;
+    }
   } else {
-    return capitalizedPlayerSelection === "Rock"
-      ? "You win! Rock beats Scissors"
-      : capitalizedPlayerSelection === "Paper"
-      ? "You lose! Scissors beats Paper"
-      : "A tie!";
+    if (capitalizedPlayerSelection === "Rock") {
+      resultDiv.textContent += "\r\nYou win! Rock beats Scissors";
+      playerWinsCount++;
+    } else if (capitalizedPlayerSelection === "Paper") {
+      resultDiv.textContent += "\r\nYou lose! Scissors beats Paper";
+      computerWinsCount++;
+    } else {
+      resultDiv.textContent += "\r\nA tie!";
+    }
   }
 }
-
-const buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
